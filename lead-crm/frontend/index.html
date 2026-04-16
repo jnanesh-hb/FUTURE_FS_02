@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeadFlow CRM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <section id="auth-view" class="auth-view">
+        <div class="hero-card">
+          <p class="eyebrow">Mini CRM</p>
+          <h1>Client Lead Management System</h1>
+          <p class="hero-copy">
+            Capture leads, track status, manage follow-ups, and convert prospects
+            into clients from one beginner-friendly dashboard.
+          </p>
+          <div class="hero-pills">
+            <span>Lead Tracking</span>
+            <span>Follow-ups</span>
+            <span>Export CSV</span>
+          </div>
+        </div>
+
+        <div class="panel auth-panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow" id="auth-mode-label">Admin Access</p>
+              <h2 id="auth-title">Login</h2>
+            </div>
+            <button id="toggle-auth-mode" class="ghost-button" type="button">
+              Create account
+            </button>
+          </div>
+
+          <form id="auth-form" class="stack gap-md">
+            <div id="name-field" class="field hidden">
+              <label for="auth-name">Full Name</label>
+              <input id="auth-name" type="text" placeholder="Alex Morgan" />
+            </div>
+
+            <div class="field">
+              <label for="auth-email">Email</label>
+              <input
+                id="auth-email"
+                type="email"
+                placeholder="admin@company.com"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="auth-password">Password</label>
+              <input
+                id="auth-password"
+                type="password"
+                placeholder="Minimum 6 characters"
+                required
+              />
+            </div>
+
+            <button class="primary-button" type="submit" id="auth-submit">
+              Login
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section id="app-view" class="app-view hidden">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">LeadFlow CRM</p>
+            <h1>Sales Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <span id="welcome-user" class="muted-text"></span>
+            <button id="logout-btn" class="ghost-button" type="button">
+              Logout
+            </button>
+          </div>
+        </header>
+
+        <main class="layout-grid">
+          <section class="stats-grid" id="stats-grid"></section>
+
+          <section class="panel chart-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Overview</p>
+                <h2>Leads by status</h2>
+              </div>
+            </div>
+            <div id="status-chart" class="chart-list empty-state-inline">
+              Stats will appear here.
+            </div>
+          </section>
+
+          <section class="panel chart-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Sources</p>
+                <h2>Lead channels</h2>
+              </div>
+            </div>
+            <div id="source-chart" class="chart-list empty-state-inline">
+              Source data will appear here.
+            </div>
+          </section>
+
+          <section class="panel form-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Lead Form</p>
+                <h2 id="lead-form-title">Add new lead</h2>
+              </div>
+              <button id="reset-lead-form" class="ghost-button" type="button">
+                Reset
+              </button>
+            </div>
+
+            <form id="lead-form" class="stack gap-md">
+              <input type="hidden" id="lead-id" />
+              <div class="form-row">
+                <div class="field">
+                  <label for="first-name">First Name</label>
+                  <input id="first-name" type="text" required />
+                </div>
+                <div class="field">
+                  <label for="last-name">Last Name</label>
+                  <input id="last-name" type="text" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" required />
+                </div>
+                <div class="field">
+                  <label for="phone">Phone</label>
+                  <input id="phone" type="text" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="field">
+                  <label for="company">Company</label>
+                  <input id="company" type="text" required />
+                </div>
+                <div class="field">
+                  <label for="source">Source</label>
+                  <select id="source">
+                    <option>Website</option>
+                    <option>Email</option>
+                    <option>Phone</option>
+                    <option>Referral</option>
+                    <option>Social Media</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="field">
+                  <label for="status">Status</label>
+                  <select id="status">
+                    <option>New</option>
+                    <option>Contacted</option>
+                    <option>In Progress</option>
+                    <option>Converted</option>
+                    <option>Closed</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="message">Message</label>
+                  <textarea id="message" rows="4"></textarea>
+                </div>
+              </div>
+
+              <button id="lead-submit" class="primary-button" type="submit">
+                Save Lead
+              </button>
+            </form>
+          </section>
+
+          <section class="panel leads-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Pipeline</p>
+                <h2>Leads</h2>
+              </div>
+              <button id="export-btn" class="secondary-button" type="button">
+                Export CSV
+              </button>
+            </div>
+
+            <div class="toolbar">
+              <input
+                id="search-input"
+                type="search"
+                placeholder="Search by name, email, or company"
+              />
+              <select id="status-filter">
+                <option value="All">All statuses</option>
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Converted">Converted</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Source</th>
+                    <th>Status</th>
+                    <th>Score</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="leads-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel detail-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Lead Detail</p>
+                <h2 id="detail-title">Select a lead</h2>
+              </div>
+            </div>
+
+            <div id="lead-detail" class="detail-content empty-state-inline">
+              Choose a lead to view notes, reminders, and status history.
+            </div>
+
+            <form id="followup-form" class="stack gap-md hidden">
+              <div class="form-row">
+                <div class="field">
+                  <label for="followup-type">Type</label>
+                  <select id="followup-type">
+                    <option>Note</option>
+                    <option>Call</option>
+                    <option>Email</option>
+                    <option>Meeting</option>
+                    <option>Task</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="followup-status">Status</label>
+                  <select id="followup-status">
+                    <option>Pending</option>
+                    <option>Completed</option>
+                    <option>Cancelled</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="followup-description">Description</label>
+                <textarea id="followup-description" rows="3" required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="field">
+                  <label for="followup-date">Reminder Date</label>
+                  <input id="followup-date" type="datetime-local" />
+                </div>
+                <div class="field">
+                  <label for="followup-outcome">Outcome</label>
+                  <input id="followup-outcome" type="text" />
+                </div>
+              </div>
+
+              <button class="primary-button" type="submit">Add Follow-up</button>
+            </form>
+          </section>
+        </main>
+      </section>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
